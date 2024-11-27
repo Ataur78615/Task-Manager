@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="main w-full min-h-screen bg-zinc-900">
+        <div class="form p-10 text-white">
+            <!-- Form to create a new task -->
+            <form action="/create" method="post">
+                <input class="block w-full px-5 py-2 bg-zinc-800 text-white rounded-md mb-4" type="text" name="title" placeholder="Title goes here.." required>
+                <textarea class="block w-full px-5 py-2 bg-zinc-800 text-white rounded-md outline-none resize-none mb-4" name="details" placeholder="Write your note here" required></textarea>
+                <input class="block px-5 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 cursor-pointer" type="submit" value="Create Task">
+            </form>
+
+            <!-- Display tasks -->
+            <div class="tasks flex gap-3 flex-wrap p-10">
+                <% if (files && files.length > 0) { %>
+                    <% files.forEach(function(task) { %>
+                        <div class="task w-72 px-3 py-4 rounded-md bg-zinc-800">
+                            <h1 class="text-white text-3xl tracking-tighter">
+                                <%= task.title %>
+                            </h1>
+                            <p class="text-white mt-2">
+                                <%= task.details %>
+                            </p>
+                            <a class="text-blue-500 inline-block mt-3" href="/files/<%= task.title %>.txt" download>
+                                Download Task
+                            </a>
+                        </div>
+                        <% }); %>
+                            <% } else { %>
+                                <h3 class="text-zinc-600">No tasks yet.</h3>
+                                <% } %>
+            </div>
+        </div>
+    </div>
+    <script src="/javascripts/script.js"></script>
+</body>
+
+</html>
